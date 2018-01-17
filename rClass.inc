@@ -1,5 +1,5 @@
 //0.3.8 Class selection by RogueDrifter 2018/1/17
-//Topic:http://forum.sa-mp.com/showthread.php?p=3981271#post3981271
+//Topic: http://forum.sa-mp.com/showthread.php?p=3981271#post3981271
 #if defined _rClassSelection_included
     #endinput
 #endif
@@ -208,6 +208,9 @@ forward OnAddSkin(skinid);
 
 public OnFilterScriptInit()
 {
+	print("		[[--|| rClass V1.0 ||--]]		");
+	print("		[[--|| Specal custom skin selector by RogueDrifter V 1.0 ||--]]		");
+	print("		[[--|| Successfully Loaded! ||--]]		");
 	rClassOb[0] = CreateObject(16501, 306.32965, 305.77649, 999.73804,   0.00000, 0.00000, 0.00000,300.0);
 	SetObjectMaterialText(rClassOb[0], "0.3.8 Skins", 0,OBJECT_MATERIAL_SIZE_256x64,"Segoe Print", 42, 1, 0xFFFF0000, 0xFF000000, OBJECT_MATERIAL_TEXT_ALIGN_LEFT);
  	rClassOb[1] = CreateObject(16501, 305.11072, 305.77588, 998.07892,   0.00000, 90.00000, 0.00000,300.0);
@@ -236,6 +239,9 @@ public OnFilterScriptExit()
 
 public OnGameModeInit()
 {
+	print("		[[--|| rClass V1.0 ||--]]		");
+	print("		[[--|| Specal custom skin selector by RogueDrifter V 1.0 ||--]]		");
+	print("		[[--|| Successfully Loaded! ||--]]		");
 	rClassOb[0] = CreateObject(16501, 306.32965, 305.77649, 999.73804,   0.00000, 0.00000, 0.00000,300.0);
 	SetObjectMaterialText(rClassOb[0], "0.3.8 Skins", 0,OBJECT_MATERIAL_SIZE_256x64,"Segoe Print", 42, 1, 0xFFFF0000, 0xFF000000, OBJECT_MATERIAL_TEXT_ALIGN_LEFT);
  	rClassOb[1] = CreateObject(16501, 305.11072, 305.77588, 998.07892,   0.00000, 90.00000, 0.00000,300.0);
@@ -275,7 +281,7 @@ stock sscanf(string[], format[], {Float,_}:...)// Obviously picked from sscanf i
 		stringPos = 0,
 		paramPos = 2,
 		paramCount = numargs();
-		
+
 	while (paramPos < paramCount && string[stringPos])
 	{
 		switch (format[formatPos++])
@@ -403,7 +409,6 @@ stock sscanf(string[], format[], {Float,_}:...)// Obviously picked from sscanf i
 #endif
 
 #if defined IsNumeric
-
 #else
 
 stock IsNumeric(const string[]) // Picked from utils.inc
