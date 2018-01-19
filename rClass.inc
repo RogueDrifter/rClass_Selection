@@ -499,7 +499,7 @@ stock IsNumeric(const string[]) // Picked from utils.inc
 CMD:checkrclass(playerid,params[])
 {
  	new sString[124], ClassesString[124];
-	if(!IsPlayerAdmin(playerid))
+	if(IsPlayerAdmin(playerid))
 	{
 		for(new i; i < MAX_SKINS_USED; i++)
 		{
@@ -516,7 +516,7 @@ CMD:checkrclass(playerid,params[])
 
 CMD:addrclass(playerid,params[])
 {
-	if(!IsPlayerAdmin(playerid))
+	if(IsPlayerAdmin(playerid))
 	{
 		new desiredskin;
 		if(sscanf(params,"i", desiredskin) || !IsNumeric(params) ) return SendClientMessage(playerid, 0xFFFFFFF,"Syntax error, Correct usage: /addrclass [skinid]");
@@ -533,7 +533,7 @@ CMD:addrclass(playerid,params[])
 
 CMD:removerclass(playerid,params[])
 {
-	if(!IsPlayerAdmin(playerid))
+	if(IsPlayerAdmin(playerid))
 	{
     	new desiredskin;
 		if(sscanf(params,"i", desiredskin) || !IsNumeric(params) ) return SendClientMessage(playerid, 0xFFFFFFF,"Syntax error, Correct usage: /addrclass [skinid]");
@@ -576,7 +576,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 {
 	if (strcmp("/addrclass", cmdtext, true, 10) == 0)
 	{
-		if(!IsPlayerAdmin(playerid))
+		if(IsPlayerAdmin(playerid))
 		{
 			new desiredskin;
 			if(sscanf(params,"ii", desiredskin) || !IsNumeric(desiredskin) ) return SendClientMessage(playerid, 0xFFFFFFF,"Syntax error, Correct usage: /addrclass [skinid]");
@@ -591,7 +591,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 		}
 	if (strcmp("/removerclass", cmdtext, true, 10) == 0)
 	{
-		if(!IsPlayerAdmin(playerid))
+		if(IsPlayerAdmin(playerid))
 		{
     		new desiredskin;
 			if(sscanf(params,"i", desiredskin) || !IsNumeric(desiredskin) ) return SendClientMessage(playerid, 0xFFFFFFF,"Syntax error, Correct usage: /addrclass [skinid]");
@@ -628,7 +628,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
     if (strcmp("/checkrclass", cmdtext, true, 10) == 0)
 	{
 		new sString[124], ClassesString[124];
-		if(!IsPlayerAdmin(playerid))
+		if(IsPlayerAdmin(playerid))
 		{
 			for(new i; i < MAX_SKINS_USED; i++)
 			{
