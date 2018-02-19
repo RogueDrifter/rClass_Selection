@@ -260,7 +260,7 @@ public OnPlayerSpawn(playerid)
 forward AddSkin(skinid);
 public AddSkin(skinid)
 {
-	if(25000 > skinid > 30000) return 0;
+	if(skinid > 30000 || skinid < 25000) return 0;
  	for(new i; i < MAX_SKINS_USED; i++)
 	{
 		if(SpecialSkin[i] ==0 && SpecialSkin[i] != skinid)
