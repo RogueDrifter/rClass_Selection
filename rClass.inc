@@ -11,29 +11,28 @@
 #include <a_samp>
 
 #if defined ENABLE_COMMANDS
-#if defined CMD
-#else
+#if !defined CMD
 #include <zcmd>
 #endif
 #endif
 
-#if defined PRESSED
-#else
+#if !defined PRESSED
 #define PRESSED(%0) \
     (((newkeys & (%0)) == (%0)) && ((oldkeys & (%0)) != (%0)))
 #endif
 
-#if defined MAX_SKINS_USED
-#else
+#if !defined MAX_SKINS_USED
 #define MAX_SKINS_USED 50 // Maximum amount of special skins change to your maximum amount you will use.
 #endif
 
 #if !defined KEY_SCLASS
 #define KEY_SCLASS KEY_SPRINT+KEY_WALK //the key used for the class selection
 #endif
+
 #if !defined KEY_RCLASS
 #define KEY_RCLASS KEY_YES //key for switching between skins forward
 #endif
+
 #if !defined KEY_LCLASS
 #define KEY_LCLASS KEY_NO// key for switching backwards between skins
 #endif
@@ -77,7 +76,10 @@ enum rPlayerData
     FTimer
 };
 
-new rPClass[MAX_PLAYERS][rPlayerData], SpecialSkin[MAX_SKINS_USED], rClassOb[2];
+new 
+	rPClass[MAX_PLAYERS][rPlayerData], 
+	SpecialSkin[MAX_SKINS_USED], 
+	rClassOb[2];
 
 #if defined OnAddSkin
 forward OnAddSkin(skinid);
@@ -101,15 +103,15 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	{
 		rPClass[playerid][PlayerChoosing]=1;
 		SendClientMessage(playerid, 0xFF0000A, "Returning to special class selection after next death. (press again to cancel)");
-		}
+	}
 	else if(PRESSED(KEY_SCLASS) && rPClass[playerid][PlayerChoosing] ==1)
 	{
 		rPClass[playerid][PlayerChoosing]=0;
 		SendClientMessage(playerid, 0xFF0000A, "Cancelled the special class request.");
-		}
+	}
 	else if(PRESSED(KEY_SCLASS) && rPClass[playerid][PlayerChoosing] ==2)
 	{
-	SpawnPlayer(playerid);
+		SpawnPlayer(playerid);
 	}
 	if(PRESSED(KEY_LCLASS) && rPClass[playerid][PlayerChoosing] ==2 && rPClass[playerid][PlayerSkins] <= MAX_SKINS_USED && rPClass[playerid][PlayerSkins] >= 1)
 	{
@@ -128,9 +130,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		 				#if defined OnPlayerChangeSpecialClass
   						OnPlayerChangeSpecialClass(playerid, oldskin, GetPlayerRSkin(playerid));
 						#endif
-						}
 					}
-			}
+				}
+		}
 		else
 		{
 		    #if defined OnPlayerChangeSpecialClass
@@ -140,12 +142,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			#if defined OnPlayerChangeSpecialClass
   			OnPlayerChangeSpecialClass(playerid, oldskin, GetPlayerRSkin(playerid));
 			#endif
-			}
 		}
+	}
 	if(PRESSED(KEY_RCLASS) && rPClass[playerid][PlayerChoosing] ==2 && rPClass[playerid][PlayerSkins] <= MAX_SKINS_USED -1 && rPClass[playerid][PlayerSkins] >= 0)
 	{
-    rPClass[playerid][PlayerSkins]++;
-    if(SpecialSkin[rPClass[playerid][PlayerSkins]] ==0 )
+    	rPClass[playerid][PlayerSkins]++;
+    	if(SpecialSkin[rPClass[playerid][PlayerSkins]] ==0 )
 		{
 			for(new i; i < MAX_SKINS_USED; i++)
 			{
@@ -159,9 +161,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					#if defined OnPlayerChangeSpecialClass
 				  	OnPlayerChangeSpecialClass(playerid, oldskin, GetPlayerRSkin(playerid));
 					#endif
-			 	    }
-		    	}
-			}
+			 	}
+		    }
+		}
     	else
 	 	{
 	 	    #if defined OnPlayerChangeSpecialClass
@@ -171,8 +173,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	 		#if defined OnPlayerChangeSpecialClass
 	 		OnPlayerChangeSpecialClass(playerid, oldskin, GetPlayerRSkin(playerid));
 	 		#endif
-	 		}
-		}
+	 	}
+	}
     #if defined OnPlayerKeyStateChangerClass
     return OnPlayerKeyStateChangerClass(playerid, newkeys, oldkeys);
 	#else
@@ -209,6 +211,7 @@ public OnPlayerConnect(playerid)
 	SendClientMessage(playerid,-1,".: or type {00FF00}/rclass {CCCCCC}:.");
 	#endif
 	#endif
+
 	#if defined OnPlayerConnectrClass
     return OnPlayerConnectrClass(playerid);
 	#else
@@ -223,6 +226,7 @@ public OnPlayerSpawn(playerid)
 	    #if defined OnPlayerSpecialRequestClass
 	    OnPlayerSpecialRequestClass(playerid);
 	    #endif
+
 		rPClass[playerid][PlayerChoosing]=2;
 		rPClass[playerid][PlayerSkins]=0;
 		TogglePlayerControllable(playerid,0);
@@ -231,6 +235,7 @@ public OnPlayerSpawn(playerid)
 		SetPlayerFacingAngle(playerid, 85.0351);
 		SetPlayerCameraPos(playerid, 302.58,305.86,999.15);
 		SetPlayerCameraLookAt(playerid, 305.8891,305.6985,999.1484);
+
 		#if defined ENABLE_CMSGS
 		SendClientMessage(playerid,-1,".: You're now at the special class selection :.");
 		SendClientMessage(playerid,-1,".: {FF0000}Press {00FF00}Y {FF0000}OR {00FF00}N {CCCCCC}to switch between skins :.");
@@ -239,7 +244,7 @@ public OnPlayerSpawn(playerid)
 		SendClientMessage(playerid,-1,".: or type {00FF00}/saverclass {CCCCCC}:.");
 		#endif
 		#endif
-	    }
+	}
 	else if(rPClass[playerid][PlayerChoosing]==2)
 	{
 	    TogglePlayerControllable(playerid,1);
@@ -249,7 +254,7 @@ public OnPlayerSpawn(playerid)
 	    #if defined OnPlayerFinishSpecialClass
 	    OnPlayerFinishSpecialClass(playerid, GetPlayerRSkin(playerid));
 	    #endif
-	    }
+	}
 	#if defined OnPlayerSpawnrClass
     return OnPlayerSpawnrClass(playerid);
 	#else
@@ -270,8 +275,8 @@ public AddSkin(skinid)
  			OnAddSkin(skinid);
  			#endif
 		 	break;
- 			}
-	    }
+ 		}
+	}
 	return 1;
 }
 
@@ -279,13 +284,14 @@ public AddSkin(skinid)
 
 public OnFilterScriptInit()
 {
-	print("     [[--|| rClass V2.0 ||--]]       ");
-    print("     [[--|| Specal custom skin selector by RogueDrifter V 2.0 ||--]]     ");
+	print("     [[--|| rClass V3.0 ||--]]       ");
+    print("     [[--|| Specal custom skin selector by RogueDrifter V 3.0 ||--]]     ");
     print("     [[--|| Successfully Loaded! ||--]]      ");
 	rClassOb[0] = CreateObject(16501, 306.32965, 305.77649, 999.73804,   0.00000, 0.00000, 0.00000,300.0);
 	rClassOb[1] = CreateObject(16501, 305.11072, 305.77588, 998.07892,   0.00000, 90.00000, 0.00000,300.0);
 	SetObjectMaterialText(rClassOb[0], "0.3.8 Skins", 0,OBJECT_MATERIAL_SIZE_256x64,"Segoe Print", 42, 1, 0xFFFF0000, 0xFF000000, OBJECT_MATERIAL_TEXT_ALIGN_LEFT);
 	SetObjectMaterialText(rClassOb[1], "0.3.8 Skins", 0,OBJECT_MATERIAL_SIZE_256x64,"Segoe Print", 42, 1, 0xFFFF0000, 0xFF000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
+	
 	#if defined OnFilterScriptInitrClass
     return OnFilterScriptInitrClass();
 	#else
@@ -299,6 +305,7 @@ public OnFilterScriptExit()
 	DestroyObject(rClassOb[1]);
 	rClassOb[0]= INVALID_OBJECT_ID;
 	rClassOb[1]= INVALID_OBJECT_ID;
+
 	#if defined OnFilterScriptExitrClass
     return OnFilterScriptExitrClass();
 	#else
@@ -310,13 +317,14 @@ public OnFilterScriptExit()
 
 public OnGameModeInit()
 {
-	print("     [[--|| rClass V2.0 ||--]]       ");
-    print("     [[--|| Specal custom skin selector by RogueDrifter V 2.0 ||--]]     ");
+	print("     [[--|| rClass V3.0 ||--]]       ");
+    print("     [[--|| Specal custom skin selector by RogueDrifter V 3.0 ||--]]     ");
     print("     [[--|| Successfully Loaded! ||--]]      ");
 	rClassOb[0] = CreateObject(16501, 306.32965, 305.77649, 999.73804,   0.00000, 0.00000, 0.00000,300.0);
 	rClassOb[1] = CreateObject(16501, 305.11072, 305.77588, 998.07892,   0.00000, 90.00000, 0.00000,300.0);
 	SetObjectMaterialText(rClassOb[0], "0.3.8 Skins", 0,OBJECT_MATERIAL_SIZE_256x64,"Segoe Print", 42, 1, 0xFFFF0000, 0xFF000000, OBJECT_MATERIAL_TEXT_ALIGN_LEFT);
 	SetObjectMaterialText(rClassOb[1], "0.3.8 Skins", 0,OBJECT_MATERIAL_SIZE_256x64,"Segoe Print", 42, 1, 0xFFFF0000, 0xFF000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
+	
 	#if defined OnGameModeInitrClass
     return OnGameModeInitrClass();
 	#else
@@ -330,6 +338,7 @@ public OnGameModeExit()
 	DestroyObject(rClassOb[1]);
 	rClassOb[0]= INVALID_OBJECT_ID;
 	rClassOb[1]= INVALID_OBJECT_ID;
+	
 	#if defined OnGameModeExitrClass
     return OnGameModeExitrClass();
 	#else
@@ -341,9 +350,7 @@ public OnGameModeExit()
 
 #if defined ENABLE_COMMANDS
 
-#if defined sscanf
-
-#else
+#if !defined sscanf
 
 stock sscanf(string[], format[], {Float,_}:...)// Obviously picked from sscanf include.
 {
@@ -479,9 +486,7 @@ stock sscanf(string[], format[], {Float,_}:...)// Obviously picked from sscanf i
 
 #endif
 
-#if defined IsNumeric
-
-#else
+#if !defined IsNumeric
 
 stock IsNumeric(const string[]) // Picked from utils.inc
 {
