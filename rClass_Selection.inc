@@ -1,12 +1,12 @@
 //0.3.8 Class selection by RogueDrifter 2018/1/17
 //Topic : http://forum.sa-mp.com/showthread.php?p=3981271#post3981271
+//Updated 2018/8/29
+
 #if defined _rClassSelection_included
 	#endinput
 #endif
 
 #define _rClassSelection_included
-//#define ENABLE_COMMANDS //Enables commands.
-//#define ENABLE_CMSGS // Enables connect messages.
 
 #include <a_samp>
 
@@ -562,10 +562,15 @@ stock AddSkin(skinid)
 
 stock GetPlayerRSkin(playerid)
 {
-	if(GetPlayerCustomSkin(playerid) ==0) return GetPlayerSkin(playerid);
-	else if(GetPlayerCustomSkin(playerid) != 0) return GetPlayerCustomSkin(playerid);
-	return 1;
+	return (GetPlayerCustomSkin(playerid) ==0) ? GetPlayerSkin(playerid) : GetPlayerCustomSkin(playerid);
 }
+
+#if defined _ALS_GetPlayerSkin 
+	#undef GetPlayerSkin 
+#else
+#define _ALS_GetPlayerSkin
+	#endif
+#define GetPlayerSkin GetPlayerRSkin
 
 #if defined _ALS_OnPlayerKeyStateChange
   #undef OnPlayerStateChange
