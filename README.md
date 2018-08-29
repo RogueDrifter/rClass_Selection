@@ -19,7 +19,7 @@ Include in your code and begin using the library:
 ## Usage
 
 ```pawn
-#MAX_SKINS_USED [NUMBER] //Max skins you use
+#define MAX_SKINS_USED [NUMBER] //Max skins you use
 ```
 
 Example code:
