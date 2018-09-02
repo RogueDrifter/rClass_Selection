@@ -41,7 +41,7 @@ To remove them:
 ```
 
   - Buttons to use are hold Spacebar and L-ALT to enter the class selection mode or /rclass if u enable my cmds and do that again in the class selection to exit or use /saverskin, you can switch between skins using buttons Y and N.<br/>
-<br/>
+
  - Custom place for the skin selection with a text you can edit through the include its 0.3.8 skins by default.<br/>
 
 ```pawn
